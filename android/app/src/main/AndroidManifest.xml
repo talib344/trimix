@@ -1,16 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.trimix">
-
-    <!-- PERMISSIONS FOR VIDEO PICK + SAVE -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
-
-    <application
-        android:label="trimix"
+   <application
         android:name="${applicationName}"
+        android:label="trimix"
         android:icon="@mipmap/ic_launcher">
         
+        <!-- YE LINE ZAROORI HAI V2 KE LIYE -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+            
         <activity
             android:name=".MainActivity"
             android:exported="true"
