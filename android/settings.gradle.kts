@@ -1,4 +1,13 @@
 pluginManagement {
+    val flutterSdkPath = run {
+        val properties = java.util.Properties()
+        file("local.properties").inputStream().use { properties.load(it) }
+        properties.getProperty("flutter.sdk")
+            ?: error("flutter.sdk not set in local.properties")
+    }
+
+    includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
+
     repositories {
         google()
         mavenCentral()
@@ -12,4 +21,13 @@ plugins {
     id("org.jetbrains.kotlin.android") version "1.9.24" apply false
 }
 
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "trimix"
 include(":app")
