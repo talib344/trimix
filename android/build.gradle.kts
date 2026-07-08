@@ -1,3 +1,7 @@
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+}
 buildscript {
     val kotlin_version by extra("1.9.24")
     repositories {  // <-- ye wapis daal diye
