@@ -18,15 +18,10 @@ allprojects {
     }
 }
 
-val newBuildDir: Directory = rootDir.resolve("../build").canonicalFile
-rootProject.layout.buildDirectory.value(newBuildDir)
+rootProject.layout.buildDirectory.set(file("../build"))
 
 subprojects {
-    val newSubprojectBuildDir: Directory = newBuildDir.resolve(name)
-    layout.buildDirectory.value(newSubprojectBuildDir)
-}
-subprojects {
-    project.evaluationDependsOn(":app")
+    layout.buildDirectory.set(rootProject.layout.buildDirectory.dir(name))
 }
 
 tasks.register<Delete>("clean") {
