@@ -1,4 +1,4 @@
-package com.example.trimix
+package com.talib.trimix_app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,24 +1,24 @@
-plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-}
-buildscript {
-    val kotlin_version by extra("1.9.24")
-    repositories {  // <-- ye wapis daal diye
+allprojects {
+    repositories {
         google()
         mavenCentral()
     }
-    dependencies {
-        classpath("com.android.tools.build:gradle:8.5.2")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
-    }
 }
 
-// allprojects me repositories nahi chahiye kyunke settings.gradle.kts de raha hai
-allprojects {}
-
-rootProject.layout.buildDirectory.set(file("../build"))
+val newBuildDir: Directory =
+    rootProject.layout.buildDirectory
+        .dir("../../build")
+        .get()
+rootProject.layout.buildDirectory.value(newBuildDir)
 
 subprojects {
-    layout.buildDirectory.set(rootProject.layout.buildDirectory.dir(name))
+    val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
+    project.layout.buildDirectory.value(newSubprojectBuildDir)
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register<Delete>("clean") {
+    delete(rootProject.layout.buildDirectory)
 }
