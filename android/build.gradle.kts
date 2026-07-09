@@ -23,6 +23,6 @@ subprojects {
     layout.buildDirectory.set(rootProject.layout.buildDirectory.dir(name))
 }
 
-tasks.register<Delete>("clean") {
-    delete(rootProject.layout.buildDirectory)
+tasks.register("clean", Delete::class) {
+    delete(rootProject.buildDir)
 }
