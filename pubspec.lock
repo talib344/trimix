@@ -1,2 +1,2 @@
 # pubspec.lock removed by automation to avoid caching old versions.
-# Run `flutter pub get` locally to regenerate this file with the locked versions.
+# Regenerate by running `flutter pub get` locally or in CI.
