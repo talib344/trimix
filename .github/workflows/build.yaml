@@ -1,13 +1,16 @@
-name: Build APK
+name: Build Trimix AAB
+
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  build:
+  build-android:
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Setup Java 17
@@ -19,23 +22,23 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.5'
+          flutter-version: '3.22.0'
           channel: 'stable'
 
-      - name: Get dependencies
+      - name: Clean Corrupted Files
+        run: |
+          rm -f pubspec.lock
+          flutter clean
+
+      - name: Get Dependencies
         run: flutter pub get
 
-      - name: Upgrade packages
-        run: flutter pub upgrade --major-versions
+      - name: Build AppBundle Release
+        run: flutter build appbundle --release --verbose
 
-      - name: Clean
-        run: flutter clean
-
-      - name: Build APK Release
-        run: flutter build apk --release
-
-      - name: Upload APK
+      - name: Upload AAB Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: trimix-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: app-release-aab
+          path: build/app/outputs/bundle/release/app-release.aab
+          retention-days: 7
