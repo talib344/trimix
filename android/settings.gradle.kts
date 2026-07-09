@@ -1,17 +1,12 @@
-pluginManagement {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS) // YE LINE CHANGE KI
-    repositories {
-        google()
-        mavenCentral()
-    }
+include ':app'
+
+def localPropertiesFile = new File(rootDir, "local.properties")
+def properties = new Properties()
+properties.load(localPropertiesFile.newDataInputStream())
+
+def flutterSdkPath = properties.getProperty("flutter.sdk")
+if (flutterSdkPath == null) {
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
-rootProject.name = "trimix"
-include(":app")
+apply from: "$flutterSdkPath/packages/flutter_tools/gradle/app_plugin_loader.gradle"
