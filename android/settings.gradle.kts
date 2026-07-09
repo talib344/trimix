@@ -1,3 +1,5 @@
+rootProject.name = "trrma"
+include ':app'
 pluginManagement {
     val flutterSdkPath =
         run {
